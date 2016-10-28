@@ -22,6 +22,13 @@ BUILD_DIR=$1
 CACHE_DIR=$2
 ENV_DIR=$3
 
+# Install apt packages if apt.install exists and continue
+if [ -f $BUILD_DIR/apt.install ]; then
+  echo "------- APT-GET INSTALLING -------"
+  source $BIN_DIR/steps/apt-install
+  echo "------- APT-GET INSTALL ENDED -------"
+fi
+
 # Use miniconda if environment.yml exists and exit
 if [ -f $BUILD_DIR/environment.yml ]; then
   echo "----------------- USING CONDA BUILDPACK -----------------"

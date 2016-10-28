@@ -54,7 +54,7 @@ done
 
 topic "Writing profile script at $BUILD_DIR directory"
 mkdir -p $BUILD_DIR/.profile.d
-cat <<EOF >/app/.profile.d/tesseract.sh
+cat <<EOF >$BUILD_DIR/.profile.d/tesseract.sh
 export PATH="/app/.apt/usr/bin:\$PATH"
 export LD_LIBRARY_PATH="/app/.apt/usr/lib/x86_64-linux-gnu:/app/.apt/usr/lib/i386-linux-gnu:/app/.apt/usr/lib:\$LD_LIBRARY_PATH"
 export LIBRARY_PATH="/app/.apt/usr/lib/x86_64-linux-gnu:/app/.apt/usr/lib/i386-linux-gnu:/app/.apt/usr/lib:\$LIBRARY_PATH"

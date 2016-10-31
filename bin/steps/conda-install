@@ -28,7 +28,7 @@ CONDA_ENVS_CACHE="$CACHE/envs"
 RUNTIME="$BUILD_DIR/runtime.txt"
 
 # Get the runtime version and download appropriate Miniconda
-MINICONDA_VERSION="4.1.11"
+MINICONDA_VERSION="4.2.11"
 if [ -e $RUNTIME ]; then
     PYTHON_VERSION=$(cut -d- -f2 $RUNTIME)
     if [ ${PYTHON_VERSION:0:1} -eq 3 ]; then
@@ -70,6 +70,8 @@ CONDA_ENV="dep_env"
 
 echo "-----> Installing Dependencies..."
 echo "-----> Installing conda environment from environment.yml..."
+echo "-----> temp fix for issue conda #3756 ..."
+$CONDA_BIN/conda install pyyaml
 $CONDA_BIN/conda env update --quiet -n $CONDA_ENV -f "$BUILD_DIR/environment.yml"
 $CONDA_BIN/conda clean -pt
 

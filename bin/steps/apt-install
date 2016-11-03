@@ -63,3 +63,8 @@ export CPATH="\$INCLUDE_PATH"
 export CPPPATH="\$INCLUDE_PATH"
 export PKG_CONFIG_PATH="/app/.apt/usr/lib/x86_64-linux-gnu/pkgconfig:/app/.apt/usr/lib/i386-linux-gnu/pkgconfig:/app/.apt/usr/lib/pkgconfig:\$PKG_CONFIG_PATH"
 EOF
+
+for pathname in $(find /app/.apt -type f -name *.so | sed -r 's|/[^/]+$||' |uniq); do
+  export LIBRARY_PATH="$pathname:$LIBRARY_PATH"
+  export LD_LIBRARY_PATH="$pathname:$LD_LIBRARY_PATH"
+done

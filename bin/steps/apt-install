@@ -52,14 +52,16 @@ for DEB in $(ls -1 $APT_CACHE_DIR/archives/*.deb); do
   dpkg -x $DEB $BUILD_DIR/.apt/
 done
 
-topic "Preparing export env variables"
+topic "Preparing export env variables $BUILD_DIR"
 SO_LIBS=
-for SO_PATH in $(find /app/.apt -type f -name *.so | sed -r 's|/[^/]+$||' |uniq); do
+for SO_PATH in $(find $BUILD_DIR/.apt -type f -name *.so | sed -r 's|/[^/]+$||' |uniq); do
+  SO_PATH=$(echo $SO_PATH | sed 's/$BUILD_DIR/\/app/g')
   SO_LIB="$SO_PATH:$SO_LIB"
 done
 
 BIN_DIRS=
-for BIN_PATH in $(find /app/.apt/  -type d | grep '/bin$'); do
+for BIN_PATH in $(find $BUILD_DIR/.apt/  -type d | grep '/bin$'); do
+  BIN_PATH=$(echo $BIN_PATH | sed 's/$BUILD_DIR/\/app/g')
   BIN_DIRS="$BIN_DIRS:$BIN_PATH"
 done
 

@@ -52,6 +52,21 @@ for DEB in $(ls -1 $APT_CACHE_DIR/archives/*.deb); do
   dpkg -x $DEB $BUILD_DIR/.apt/
 done
 
+topic "Preparing export env variables"
+SO_LIBS=
+for SO_PATH in $(find /app/.apt -type f -name *.so | sed -r 's|/[^/]+$||' |uniq); do
+  SO_LIB="$SO_PATH:$SO_LIB"
+done
+
+BIN_DIRS=
+for BIN_PATH in $(find /app/.apt/  -type d | grep '/bin$'); do
+  BIN_DIRS="$BIN_DIRS:$BIN_PATH"
+done
+
+export PATH="$BIN_DIRS:$PATH"
+export LD_LIBRARY_PATH="$SO_LIBS:$LD_LIBRARY_PATH"
+export LIBRARY_PATH="$SO_LIBS:$LIBRARY_PATH"
+
 topic "Writing profile script at $BUILD_DIR directory"
 mkdir -p $BUILD_DIR/.profile.d
 cat <<EOF >$BUILD_DIR/.profile.d/apt-install.sh
@@ -63,8 +78,3 @@ export CPATH="\$INCLUDE_PATH"
 export CPPPATH="\$INCLUDE_PATH"
 export PKG_CONFIG_PATH="/app/.apt/usr/lib/x86_64-linux-gnu/pkgconfig:/app/.apt/usr/lib/i386-linux-gnu/pkgconfig:/app/.apt/usr/lib/pkgconfig:\$PKG_CONFIG_PATH"
 EOF
-
-for pathname in $(find /app/.apt -type f -name *.so | sed -r 's|/[^/]+$||' |uniq); do
-  export LIBRARY_PATH="$pathname:$LIBRARY_PATH"
-  export LD_LIBRARY_PATH="$pathname:$LD_LIBRARY_PATH"
-done

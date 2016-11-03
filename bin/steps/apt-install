@@ -57,8 +57,11 @@ SO_LIBS=
 for SO_PATH in $(find $BUILD_DIR/.apt -type f -name *.so | sed -r 's|/[^/]+$||' |uniq); do
   echo $SO_PATH
   SO_PATH=$(echo $SO_PATH | sed 's/$BUILD_DIR/\/app/g')
+  echo $SO_PATH
   SO_LIB="$SO_PATH:$SO_LIB"
 done
+
+echo $SO_LIB
 
 BIN_DIRS=
 for BIN_PATH in $(find $BUILD_DIR/.apt/  -type d | grep '/bin$'); do

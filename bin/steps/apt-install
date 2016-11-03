@@ -65,16 +65,13 @@ for BIN_PATH in $(find $BUILD_DIR/.apt  -type d | grep '/bin$'); do
   BIN_DIRS="$BIN_DIRS:$BIN_PATH"
 done
 
-PATH="$BIN_DIRS:$PATH"
-LD_LIBRARY_PATH="$SO_LIBS:$LD_LIBRARY_PATH"
-LIBRARY_PATH="$SO_LIBS:$LIBRARY_PATH"
-
 topic "Writing profile script at $BUILD_DIR directory"
 mkdir -p $BUILD_DIR/.profile.d
 cat <<EOF >$BUILD_DIR/.profile.d/apt-install.sh
-export PATH="/app/.apt/usr/bin:\$PATH"
-export LD_LIBRARY_PATH="/app/.apt/usr/lib/x86_64-linux-gnu:/app/.apt/usr/lib/i386-linux-gnu:/app/.apt/usr/lib:\$LD_LIBRARY_PATH"
-export LIBRARY_PATH="/app/.apt/usr/lib/x86_64-linux-gnu:/app/.apt/usr/lib/i386-linux-gnu:/app/.apt/usr/lib:\$LIBRARY_PATH"
+#export PATH="/app/.apt/usr/bin:\$PATH"
+export PATH="${BIN_DIRS}:\$PATH"
+export LD_LIBRARY_PATH="/app/.apt/usr/lib/x86_64-linux-gnu:/app/.apt/usr/lib/i386-linux-gnu:/app/.apt/usr/lib:${SO_LIB}:\$LD_LIBRARY_PATH"
+export LIBRARY_PATH="/app/.apt/usr/lib/x86_64-linux-gnu:/app/.apt/usr/lib/i386-linux-gnu:/app/.apt/usr/lib:${SO_LIB}:\$LIBRARY_PATH"
 export INCLUDE_PATH="/app/.apt/usr/include:\$INCLUDE_PATH"
 export CPATH="\$INCLUDE_PATH"
 export CPPPATH="\$INCLUDE_PATH"

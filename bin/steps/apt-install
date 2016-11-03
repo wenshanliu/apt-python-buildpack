@@ -55,26 +55,19 @@ done
 topic "Preparing export env variables..."
 SO_LIBS=
 for SO_PATH in $(find $BUILD_DIR/.apt -type f -name *.so | sed -r 's|/[^/]+$||' |uniq); do
-  echo $SO_PATH
   SO_PATH=$(echo $SO_PATH | sed "s|$BUILD_DIR|/app|g")
-  echo $SO_PATH
   SO_LIB="$SO_PATH:$SO_LIB"
 done
 
-echo $SO_LIB
-
 BIN_DIRS=
 for BIN_PATH in $(find $BUILD_DIR/.apt  -type d | grep '/bin$'); do
-  echo $BIN_PATH
   BIN_PATH=$(echo $BIN_PATH | sed "s|$BUILD_DIR|/app|g")
   BIN_DIRS="$BIN_DIRS:$BIN_PATH"
 done
 
-echo $BIN_DIRS
-
-export PATH="$BIN_DIRS:$PATH"
-export LD_LIBRARY_PATH="$SO_LIBS:$LD_LIBRARY_PATH"
-export LIBRARY_PATH="$SO_LIBS:$LIBRARY_PATH"
+PATH="$BIN_DIRS:$PATH"
+LD_LIBRARY_PATH="$SO_LIBS:$LD_LIBRARY_PATH"
+LIBRARY_PATH="$SO_LIBS:$LIBRARY_PATH"
 
 topic "Writing profile script at $BUILD_DIR directory"
 mkdir -p $BUILD_DIR/.profile.d

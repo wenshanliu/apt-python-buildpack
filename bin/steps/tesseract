@@ -5,8 +5,8 @@ INSTALL_DIR=./vendor/tesseract
 ENVSCRIPT=./.profile.d/tesseract.sh
 
 echo "Unpacking Tesseract binaries"
-pwd
 mkdir -p $INSTALL_DIR
+echo $INSTALL_DIR
 tar -zxvf $ROOT_DIR/$TESSERACT_TGZ -C $INSTALL_DIR
 
 echo "Building runtime environment for Tesseract"

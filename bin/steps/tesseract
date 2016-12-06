@@ -1,5 +1,5 @@
 #!/bin/bash
-TESSERACT_TGZ=ocr_bundle.zip
+TESSERACT_TGZ=ocr_bundle.tar.gz
 
 INSTALL_DIR=$BUILD_DIR/vendor/tesseract/
 ENVSCRIPT=$BUILD_DIR/.profile.d/tesseract.sh

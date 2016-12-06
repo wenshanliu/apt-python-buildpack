@@ -2,9 +2,10 @@
 TESSERACT_TGZ=ocr_bundle.tar.gz
 
 INSTALL_DIR=./vendor/tesseract
-ENVSCRIPT=./.profile.d/tesseract.sh
+ENVSCRIPT=$BUILD_DIR/.profile.d/tesseract.sh
 
 echo "Unpacking Tesseract binaries"
+echo $BUILD_DIR
 mkdir -p $INSTALL_DIR
 echo $INSTALL_DIR
 tar -zxvf $ROOT_DIR/$TESSERACT_TGZ -C $INSTALL_DIR

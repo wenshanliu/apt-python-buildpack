@@ -1,7 +1,7 @@
 #!/bin/bash
 TESSERACT_TGZ=ocr_bundle.tar.gz
 
-INSTALL_DIR=$BUILD_DIR/vendor/tesseract/
+INSTALL_DIR=$BUILD_DIR/vendor/tesseract
 ENVSCRIPT=$BUILD_DIR/.profile.d/tesseract.sh
 
 echo "Unpacking Tesseract binaries"
@@ -12,7 +12,7 @@ echo "Building runtime environment for Tesseract"
 mkdir -p $BUILD_DIR/.profile.d
 echo "export PATH=\"$INSTALL_DIR/bin:\$PATH\"" > $ENVSCRIPT
 echo "export LD_LIBRARY_PATH=\"$INSTALL_DIR/lib:\$LD_LIBRARY_PATH\"" >> $ENVSCRIPT
-export PATH=$INSTALL_DIR/bin:\$PATH
+export PATH=$INSTALL_DIR/bin:$PATH
 echo $PATH
-export LD_LIBRARY_PATH=$INSTALL_DIR/lib:\$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$INSTALL_DIR/lib:$LD_LIBRARY_PATH
 echo $LD_LIBRARY_PATH

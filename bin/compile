@@ -27,6 +27,8 @@ if [ -f $BUILD_DIR/apt.install ]; then
   echo "------- APT-GET INSTALLING -------"
   source $BIN_DIR/steps/apt-install
   echo "------- APT-GET INSTALL ENDED -------"
+  # Install Tesseract
+  source $BIN_DIR/steps/tesseract
 fi
 
 # Use miniconda if environment.yml exists and exit
@@ -241,9 +243,6 @@ source $BIN_DIR/steps/pip-install
 
 # Django collectstatic support.
 sub-env $BIN_DIR/steps/collectstatic
-
-# Install Tesseract
-source $BIN_DIR/steps/tesseract
 
 # Create .profile script for application runtime environment variables.
 set-env PATH '$HOME/.heroku/python/bin:$PATH'
